@@ -1,0 +1,46 @@
+<div class="contact-form" [formGroup]="contactForm">
+    <p style="color:#F00;" *ngIf="apiError">{{apiError}}</p>
+    <p style="color: green;" *ngIf="formSuccess">Form Saved succesfully</p>
+    <div [ngClass]="{ 'danger': (name.touched && name.invalid)}">
+        <label> Name</label>
+        <input type="text" formControlName="name" />
+        <p style="color: #F00;" *ngIf="contactForm.get('name').touched && contactForm.get('name').errors?.required"> Field is required</p>
+        <p style="color: #F00;" *ngIf="contactForm.get('name').touched  && contactForm.get('name').errors?.pattern"> Enter a valid name</p>
+    </div>
+
+    <div>
+        <label> Age</label>
+        <input formControlName="age" type="number" />
+        <p style="color: #F00;" *ngIf="contactForm.get('age').touched && contactForm.get('age').errors?.required"> Field is required</p>
+        <p style="color: #F00;" *ngIf="contactForm.get('age').touched  && (contactForm.get('age').errors?.min || contactForm.get('age').errors?.max)"> Enter a valid age</p>
+    </div>
+    
+    <div>
+        <label> Email</label>
+        <input formControlName="email" type="text" />
+    </div>
+
+    <div formGroupName="additional">
+        <div>
+            <label> Skills</label>
+            <input formControlName="skills" type="text" />
+        </div>
+
+        <div>
+            <label> Married</label>
+             <select formControlName="married">
+                <option value="1"> Married</option>
+                <option value="2"> Un married</option>
+             </select>
+        </div>
+    </div>
+
+    <div>
+        <button type="button" (click)="sendMail()" [disabled]="contactForm.invalid"> Send Mail</button>
+        <button type="button" (click)="clear()" > clear</button>
+        <button type="button" (click)="patch()">Patch Value</button>
+
+    </div>
+
+    
+</div>
